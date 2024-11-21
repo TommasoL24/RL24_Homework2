@@ -16,7 +16,17 @@ public:
                            KDL::JntArray &_dqd,
                            KDL::JntArray &_ddqd,
                            double _Kp,
-                           double _Kd);
+                           double _Kd,
+                           KDLRobot &_robot);
+                           
+    Eigen::MatrixXd computeDampedPseudoInverse(const Eigen::MatrixXd& J, double lambda);
+    
+    void CLIK(KDL::Frame &_desPos,
+              KDL::Twist &_desVel,
+              KDL::Twist &_desAcc,
+              double _Kp, double _Kd,
+              KDL::JntArray &_dq, KDL::JntArray &_dqd, KDL::JntArray &_dqdd,
+              double int_t, KDLRobot &_robot, double lam);
 
     Eigen::VectorXd idCntr(KDL::Frame &_desPos,
                            KDL::Twist &_desVel,
@@ -24,7 +34,8 @@ public:
                            double _Kpp,
                            double _Kpo,
                            double _Kdp,
-                           double _Kdo);
+                           double _Kdo,
+                           KDLRobot &_robot, double lam);
 
 private:
 

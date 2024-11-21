@@ -149,12 +149,12 @@ trajectory_point KDLPlanner::compute_trajectory_circle(double time, double time_
         cubic_polinomial(time, s, s_dot, s_ddot);
     } else {
         trapezoidal_vel(time, time_c, s, s_dot, s_ddot);
-   }
+    }
     trajectory_point traj;
     
-    traj.pos.x() = trajInit_.x();
-    traj.pos.y() = trajInit_.y() + trajRadius_ - trajRadius_ * std::cos(2*M_PI*s);
-    traj.pos.z() = trajInit_.z() - trajRadius_ * std::sin(2*M_PI*s);
+    traj.pos.x() = trajInit_[0];
+    traj.pos.y() = trajInit_[1]+trajRadius_ - trajRadius_ * std::cos(2*M_PI*s);
+    traj.pos.z() = trajInit_[2] - trajRadius_ * std::sin(2*M_PI*s);
 
     traj.vel.x() = 0.0;
     traj.vel.y() = 2*M_PI*trajRadius_ * std::sin(2*M_PI*s) * s_dot;
@@ -175,7 +175,6 @@ KDLPlanner::KDLPlanner(double _trajDuration, Eigen::Vector3d _trajInit, Eigen::V
 
 trajectory_point KDLPlanner::compute_trajectory_linear(double time, double time_c){
     double s, s_dot, s_ddot;
-    
     if(time_c==0){
         cubic_polinomial(time, s, s_dot, s_ddot);
     } else {
